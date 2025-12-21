@@ -1,0 +1,19 @@
+// Author: Hwinkdev: https://www.youtube.com/@hwinkdev.official
+{
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    [
+      "@babel/transform-runtime"
+    ],
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "~": "./src"
+        }
+      }
+    ]
+  ]
+}

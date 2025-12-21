@@ -1,0 +1,15 @@
+import 'dotenv/config'
+
+export const env = {
+  LOCAL_DEV_APP_HOST: process.env.LOCAL_DEV_APP_HOST,
+  LOCAL_DEV_APP_PORT: process.env.LOCAL_DEV_APP_PORT,
+
+  AUTHOR: process.env.AUTHOR || 'Anonymous',
+
+  //JWT Token
+  ACCESS_TOKEN_SECRET_SIGNATURE: process.env.ACCESS_TOKEN_SECRET_SIGNATURE,
+  ACCESS_TOKEN_LIFE: process.env.ACCESS_TOKEN_LIFE,
+
+  REFRESH_TOKEN_SECRET_SIGNATURE: process.env.REFRESH_TOKEN_SECRET_SIGNATURE,
+  REFRESH_TOKEN_LIFE: process.env.REFRESH_TOKEN_LIFE
+}
