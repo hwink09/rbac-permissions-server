@@ -4,26 +4,21 @@ import { StatusCodes } from 'http-status-codes'
 import { JwtProvider } from '~/providers/JwtProvider'
 import { env } from '~/config/environment'
 import ms from 'ms'
+import { MOCK_USER_LEVEL_1 } from '~/models/mockDBv1'
 
-const MOCK_DATABASE = {
-  USER: {
-    ID: 'hwinkdev-sample-id-12345678',
-    EMAIL: 'hwink.dev@gmail.com',
-    PASSWORD: 'hwinkdev@123'
-  }
-}
 
 const login = async (req, res) => {
   try {
-    if (req.body.email !== MOCK_DATABASE.USER.EMAIL || req.body.password !== MOCK_DATABASE.USER.PASSWORD) {
+    if (req.body.email !== MOCK_USER_LEVEL_1.EMAIL || req.body.password !== MOCK_USER_LEVEL_1.PASSWORD) {
       res.status(StatusCodes.FORBIDDEN).json({ message: 'Your email or password is incorrect!' })
       return
     }
 
     // Tạo thông tin (payload) để đính kèm trong JWT token
     const userInfo = {
-      id: MOCK_DATABASE.USER.ID,
-      email: MOCK_DATABASE.USER.EMAIL
+      id: MOCK_USER_LEVEL_1.ID,
+      email: MOCK_USER_LEVEL_1.EMAIL,
+      role: MOCK_USER_LEVEL_1.ROLE
     }
 
     // Create JWT tokens
@@ -93,7 +88,8 @@ const refreshToken = async (req, res) => {
     // Extract user info from decoded token (saves a database query)
     const userInfo = {
       id: refreshTokenDecoded.id,
-      email: refreshTokenDecoded.email
+      email: refreshTokenDecoded.email,
+      role: refreshTokenDecoded.role
     }
 
     // Generate new accessToken
@@ -113,6 +109,7 @@ const refreshToken = async (req, res) => {
 
     // Return success (new accessToken is in httpOnly cookie)
     res.status(StatusCodes.OK).json({ message: 'Token refreshed successfully' })
+  // eslint-disable-next-line no-unused-vars
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Refresh token is invalid or expired.' })
   }

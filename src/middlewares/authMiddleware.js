@@ -5,8 +5,8 @@ import { JwtProvider } from '~/providers/JwtProvider'
 // Middleware: Validate JWT accessToken from client cookies
 const isAuthorized = async (req, res, next) => {
   // Get accessToken from httpOnly cookie sent by client (with withCredentials)
-  const accessTokenFromCookie = req.cookies?.accessToken
-  if (!accessTokenFromCookie) {
+  const accessToken = req.cookies?.accessToken
+  if (!accessToken) {
     res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Unauthorized: No access token provided' })
     return
   }
@@ -14,7 +14,7 @@ const isAuthorized = async (req, res, next) => {
   try {
     // Step 1: Verify and decode the accessToken
     const accessTokenDecoded = await JwtProvider.verifyToken(
-      accessTokenFromCookie,
+      accessToken,
       process.env.ACCESS_TOKEN_SECRET_SIGNATURE
     )
 
