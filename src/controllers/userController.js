@@ -5,21 +5,23 @@ import { JwtProvider } from '~/providers/JwtProvider'
 import { env } from '~/config/environment'
 import ms from 'ms'
 // import { MOCK_USER_LEVEL_1 } from '~/models/mockDBv1'
-import { MOCK_USER_LEVEL_2 } from '~/models/mockDBv2'
+// import { MOCK_USER_LEVEL_2 } from '~/models/mockDBv2'
+import { MOCK_USER_LEVEL_3 } from '~/models/mockDBv3'
 
 const login = async (req, res) => {
   try {
-    if (req.body.email !== MOCK_USER_LEVEL_2.EMAIL || req.body.password !== MOCK_USER_LEVEL_2.PASSWORD) {
+    if (req.body.email !== MOCK_USER_LEVEL_3.EMAIL || req.body.password !== MOCK_USER_LEVEL_3.PASSWORD) {
       res.status(StatusCodes.FORBIDDEN).json({ message: 'Your email or password is incorrect!' })
       return
     }
 
     // Tạo thông tin (payload) để đính kèm trong JWT token
     const userInfo = {
-      id: MOCK_USER_LEVEL_2.ID,
-      email: MOCK_USER_LEVEL_2.EMAIL,
+      id: MOCK_USER_LEVEL_3.ID,
+      email: MOCK_USER_LEVEL_3.EMAIL,
       // role: MOCK_USER_LEVEL_1.ROLE
-      role: MOCK_USER_LEVEL_2.ROLE
+      // role: MOCK_USER_LEVEL_2.ROLE
+      role: MOCK_USER_LEVEL_3.ROLES
     }
 
     // Create JWT tokens
